@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>纯CSS实现轮播</title>
+    <style>
+        /**
+        *   Author：xue-shuai
+        *   Date：2019/10/09
+        */
+
+        /* 变量 */
+        :root{
+            --red:red;
+            --pink:pink;
+            --blue:blue;
+            --hotpink:hotpink;
+            --yellow:yellow;
+        }
+        /*css reset start*/
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        ul,
+        li {
+            list-style: none;
+        }
+        /*css reset end*/
+
+        /*父容器Start*/
+        .slider-container {
+            width: 500px;
+            height: 370px;
+            overflow: hidden;
+            margin: 200px auto;
+            position: relative;
+        }
+        /*父容器End*/
+
+        /*轮播Start*/
+        .slider{
+            width: 2500px;
+            height: 300px;
+            float: left;
+            transition: 1s;
+            position: absolute;
+        }
+        .slider-item{
+            width: 500px;
+            height: 100%;
+            line-height: 300px;
+            float: left;
+            text-align: center;
+            font-size: 30px;
+            color: #fff;
+        }
+        .slider-item1{
+            background: var(--red);
+        }
+        .slider-item2{
+            background: var(--pink);
+
+        }
+        .slider-item3{
+            background: var(--blue);
+        }
+        .slider-item4{
+            background: var(--hotpink);
+        }
+        .slider-item5{
+            background: var(--yellow);
+        }
+        /*轮播End*/
+
+        /*按钮Start*/
+        button{
+            width: 40px;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            outline: none;
+            margin-top: 10px;
+            background: #2a98e2;
+            position: absolute;
+            top: 24%;
+            opacity: .4;
+            z-index: 9;
+        }
+        .next{right: 0;}
+        .prev{left: 0;}
+
+        .prev:focus+.slider{
+            transform: translateX(-500px);
+        }
+        .next:focus+.slider{
+            transform: translateX(-500px);
+        }
+        /*按钮End*/
+    </style>
+</head>
+
+<body>
+    <section class="slider-container">
+        <button class="prev">上<br>一<br>张</button>
+        <button class="next">下<br>一<br>张</button>
+        <ul class="slider">
+            <li class="slider-item slider-item1">item1</li>
+            <li class="slider-item slider-item2">item2</li>
+            <li class="slider-item slider-item3">item3</li>
+            <li class="slider-item slider-item4">item4</li>
+            <li class="slider-item slider-item5">item5</li>
+        </ul>
+    </section>
+</body>
+
+</html>
