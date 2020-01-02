@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./css/Eject.css">
+    <title>封装转盘</title>
+    <script src="./js/jquery-2.0.0.min.js"></script>
+    <script src="./js/Eject.js"></script>
+    <style>
+        #box{display: flex;flex-direction: column;justify-content: center;align-items: center;position: relative;}
+
+        #canvas{transition: 5s;display: inline-block;margin: 0 auto;}
+
+        #pointer{position: absolute;top: 50%;left: 50%;margin-top: -50px;margin-left: -44px; display: inline-block;width: 100px;height: 100px;border-radius: 50%;background: #f00;font: 16px/100px '微软雅黑';color: #fff; text-align: center;cursor: pointer;}
+        #pointer>span{display: inline-block;position: absolute;top: 77%;left: 38%;border-width: 100px 10px 0 10px; border-style: solid; border-color: #f00 transparent transparent transparent;}
+
+    </style>
+</head>
+<body>
+    <div id="box">
+        <canvas id="canvas" width="500" height="500">您的浏览器版本不支持canvas,请更换浏览器!</canvas>
+        <div id="pointer" onclick="rotate()"><span></span>转动转盘</div>
+    </div>
+
+    <script>
+        var Ealt = new Eject();
+        const canvas = document.getElementById('canvas');
+
+        let config = {
+            backgroundImage:'#f00',//背景图
+            prizeOption:['吃饭','睡觉','打豆豆','写代码','笑','大笑','哈哈'],//奖项
+            prizeDeg:['15','45','60','60','120','60'],//各奖项所占的角度  
+            prizeBg:['#afd','#03f','#1f3','#56d','#6dc','#dac','#cbe'],//各个奖项所对应的背景颜色
+            deg:Math.floor(1101 * Math.random() + 900),//转动的角度(900-2000之间的随机数)  随机生成n-m之间的随机数：Math.floor(Math.random() * (m - n + 1) + n)
+            duration:6000,//转动的时长
+            average:true,//是否平分
+            rot:false//是否转动
+        }
+
+        let {backgroundImage,prizeOption,prizeDeg,prizeBg,deg,duration,average,rot} = config;
+
+        //转动抽奖
+        function rotate(){
+            rot ? rot=rot : rot=!rot;
+            $('#canvas').css({transform:'rotate('+ deg +'deg)'})
+            Ealt.Ealert({
+                title:'提示',
+                message:'恭喜,你中奖了!'
+            })
+        }
+
+        if(canvas.getContext){
+            let ctx = canvas.getContext('2d');
+
+            //画大圆
+            ctx.beginPath();
+            ctx.translate(250,250);
+            ctx.arc(0,0,250,0,2*Math.PI);
+            ctx.strokeStyle="#f00";
+            ctx.closePath();
+            
+            if(average){
+                //如果平分的话,则自动计算每个奖项所占的角度
+                for(var i=0;i<prizeOption.length;i++){
+                    ctx.beginPath();
+                    ctx.moveTo(0,0);
+                    ctx.arc(0,0,250,(360/prizeOption.length)*i*Math.PI/180,(360/prizeOption.length)*(i+1)*Math.PI/180,false)
+                    ctx.fillStyle=prizeBg[i];
+                    ctx.fill();
+                }
+                //填充文字
+                for(var i=0;i<prizeOption.length;i++){
+                    ctx.beginPath();
+                    ctx.font = "700 24px serif";
+                    ctx.fillStyle ="#000";
+                    ctx.fillText(prizeOption[i],160*Math.cos((360/prizeOption.length)*(i+1)*Math.PI/180), 160*Math.sin((360/prizeOption.length)*(i+1)*Math.PI/180));
+                    ctx.fill();
+                }
+            }else{
+                //否则,则选用用户上传的角度
+                /* for(var i=0;i<prizeOption.length;i++){
+                    ctx.beginPath();
+                    ctx.moveTo(0,0);
+                    ctx.arc(0,0,250,1*prizeDeg[i-1]*Math.PI/180,prizeDeg[i]*Math.PI/180,false)
+                    ctx.fillStyle=prizeBg[i];
+                    ctx.fill();
+                    ctx.stroke();
+                } */
+            }
+            
+
+            /* //画30°
+            ctx.moveTo(0,0);
+            ctx.arc(0,0,250,0,60*Math.PI/180,false)
+            ctx.fillStyle="red";
+            ctx.stroke();
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.moveTo(0,0);
+            ctx.arc(0,0,250,60*Math.PI/180,120*Math.PI/180,false)
+            ctx.fillStyle="blue";
+            ctx.fill();
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.moveTo(0,0);
+            ctx.arc(0,0,250,120*Math.PI/180,180*Math.PI/180,false)
+            ctx.fillStyle="green";
+            ctx.fill();
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.moveTo(0,0);
+            ctx.arc(0,0,250,180*Math.PI/180,240*Math.PI/180,false)
+            ctx.fillStyle="hotpink";
+            ctx.fill();
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.moveTo(0,0);
+            ctx.arc(0,0,250,240*Math.PI/180,300*Math.PI/180,false)
+            ctx.fillStyle="pink";
+            ctx.fill();
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.moveTo(0,0);
+            ctx.arc(0,0,250,300*Math.PI/180,360*Math.PI/180,false)
+            ctx.fillStyle="yellow";
+            ctx.fill();
+            ctx.stroke(); */
+        }
+    </script>
+</body>
+</html>

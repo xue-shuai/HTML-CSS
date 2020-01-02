@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>纯CSS实现自动轮播效果</title>
+    <style>
+        /* 变量 */
+        :root{
+            --red:red;
+            --pink:pink;
+            --blue:blue;
+            --hotpink:hotpink;
+            --yellow:yellow;
+            --count:2s;
+            --count1:calc(1*var(--count));
+            --count2:calc(2*var(--count));
+            --count3:calc(3*var(--count));
+            --count4:calc(4*var(--count));
+            --count5:calc(5*var(--count));
+        }
+        /*css reset start*/
+        * { margin: 0; padding: 0; }
+        ul, li { list-style: none; }
+        /*css reset end*/
+        .slider-container { width: 500px; height: 300px; overflow: hidden; margin: 200px auto; }
+        .slider{ width: 2500px; height: 300px; float: left; animation: move6 10s var(--count1) linear infinite; -webkit-animation: move6 10s var(--count1) linear infinite;}
+        .slider:hover{ animation-play-state: paused; }
+        .slider-item{ width: 500px; height: 100%; line-height: 300px; float: left; text-align: center; font-size: 30px; color: #fff; }
+        .slider-item1{ background: var(--red); }
+        .slider-item2{ background: var(--pink); }
+        .slider-item3{ background: var(--blue); }
+        .slider-item4{ background: var(--hotpink); }
+        .slider-item5{ background: var(--yellow); }
+        @keyframes move6 { from { transform: translateX(0) } to { transform: translateX(-2000px) } }
+    </style>
+</head>
+
+<body>
+    <section class="slider-container">
+        <ul class="slider">
+            <li class="slider-item slider-item1">item1</li>
+            <li class="slider-item slider-item2">item2</li>
+            <li class="slider-item slider-item3">item3</li>
+            <li class="slider-item slider-item4">item4</li>
+            <li class="slider-item slider-item5">item5</li>
+        </ul>
+    </section>
+</body>
+
+</html>
