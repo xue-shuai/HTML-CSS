@@ -6,6 +6,7 @@
 1. 纯CSS实现自动轮播
 2. 纯CSS实现点击轮播
 3. HTML+CSS+JQuery实现转盘抽奖功能
+4. party(2020年...公司年会转盘抽奖,含内定)
 
 # 贡献者
 Author：xue-shuai
